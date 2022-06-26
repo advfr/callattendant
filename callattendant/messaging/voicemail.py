@@ -23,6 +23,9 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 
+from email.mime.audio import MIMEAudio
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 import os
 import threading
 from datetime import datetime
@@ -150,26 +153,34 @@ class VoiceMail:
         if self.modem.record_audio(filepath, detect_silence):
             # Save to Message table (message.add will update the indicator)
             msg_no = self.messages.add(call_no, filepath)
-            
+
             # Send an e-mail notification
             if self.config["EMAIL_ENABLE"]:
-                context = ssl.create_default_context()
-                with smtplib.SMTP_SSL(self.config["EMAIL_SERVER"], self.config["EMAIL_PORT"], context=context) as server:
-                    server.login(self.config["EMAIL_SERVER_USERNAME"], self.config["EMAIL_SERVER_PASSWORD"])
-                    message = f"""Subject: Phone  message recorded
-From: {self.config["EMAIL_FROM"]}
-To: {self.config["EMAIL_TO"]}
+                self.__send_email(caller, filepath)
 
-Caller {caller["NMBR"]}, {caller["NAME"]} left a message.
-"""
-                    server.sendmail(self.config["EMAIL_FROM"], self.config["EMAIL_TO"].split(','), message)
-            
             # Return the messageID on success
             return msg_no
         else:
             self.reset_message_indicator()
             # Return failure
             return None
+
+    def __send_email(self, caller, filepath):
+        context = ssl.create_default_context()
+        with smtplib.SMTP_SSL(self.config["EMAIL_SERVER"], self.config["EMAIL_PORT"], context=context) as server:
+            server.login(self.config["EMAIL_SERVER_USERNAME"], self.config["EMAIL_SERVER_PASSWORD"])
+            message = MIMEMultipart()
+            message['Subject'] = 'Phone message recorded'
+            message['From'] = self.config["EMAIL_FROM"]
+            message['To'] = self.config["EMAIL_TO"]
+            body = MIMEText(f'Caller {caller["NMBR"]}, {caller["NAME"]} left a message.\n')
+            message.attach(body)
+            if self.config["EMAIL_ATTACH"]:
+                with open(filepath, 'rb') as wavefile:
+                    att = MIMEAudio(wavefile.read(), 'wave')
+                    att.add_header('Content-Disposition', f'attachment;filename={os.path.basename(filepath)}')
+                    message.attach(att)
+            server.sendmail(self.config["EMAIL_FROM"], self.config["EMAIL_TO"].split(','), message.as_string())
 
     def delete_message(self, msg_no):
         """

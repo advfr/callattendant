@@ -25,21 +25,9 @@ textarea
   that is, a <a href="https://docs.python.org/3/library/re.html#regular-expression-syntax" target="_blank">regular expression</a>,
   optionally followed by a colon and a human-readable description of who is being black or whitelisted.</p>
   <p>Regular expressions for names are case-insensitive.</p>
-  <p>When a call comes in, whitelists are processed before blacklists.</p>
+  <p>When a call comes in, blacklists are processed before whitelists.</p>
   <form id="regexlistsform" style="margin-top: 2em;">
       <div class="mb-2" style="width: 100%; display: table;">
-        <div style="display: table-row;">
-            <div style="width: 50%; display: table-cell;">
-              <h3><label for="permitnameslist">Permit Names List:</label></h3>
-
-              <textarea id="permitnameslist" name="permitnameslist" rows="10" oninput="document.getElementById('save-button').disabled = false">{{ permitnameslist }}</textarea>
-            </div>
-            <div style="display: table-cell;">
-              <h3><label for="permitnumberslist">Permit Numbers List:</label></h3>
-
-              <textarea id="permitnumberslist" name="permitnumberslist" rows="10" oninput="document.getElementById('save-button').disabled = false">{{ permitnumberslist }}</textarea>
-            </div>
-        </div>
         <div style="display: table-row;">
             <div style="width: 50%; display: table-cell;">
               <h3><label for="blocknameslist">Block Names List:</label></h3>
@@ -50,6 +38,18 @@ textarea
               <h3><label for="blocknumberslist">Block Numbers List:</label></h3>
 
               <textarea id="blocknumberslist" name="blocknumberslist" rows="10" oninput="document.getElementById('save-button').disabled = false">{{ blocknumberslist }}</textarea>
+            </div>
+        </div>
+        <div style="display: table-row;">
+            <div style="width: 50%; display: table-cell;">
+              <h3><label for="permitnameslist">Permit Names List:</label></h3>
+
+              <textarea id="permitnameslist" name="permitnameslist" rows="10" oninput="document.getElementById('save-button').disabled = false">{{ permitnameslist }}</textarea>
+            </div>
+            <div style="display: table-cell;">
+              <h3><label for="permitnumberslist">Permit Numbers List:</label></h3>
+
+              <textarea id="permitnumberslist" name="permitnumberslist" rows="10" oninput="document.getElementById('save-button').disabled = false">{{ permitnumberslist }}</textarea>
             </div>
         </div>
       </div>

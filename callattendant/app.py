@@ -157,16 +157,7 @@ class CallAttendant(object):
                     action = "Permitted"
                     self.approved_indicator.blink()
 
-                # Check the whitelist
-                if not caller_permitted and "whitelist" in screening_mode:
-                    print("> Checking whitelist(s)")
-                    is_whitelisted, reason = self.screener.is_whitelisted(caller)
-                    if is_whitelisted:
-                        caller_permitted = True
-                        action = "Permitted"
-                        self.approved_indicator.blink()
-
-                # Now check the blacklist if not preempted by whitelist
+                # Check the blacklist
                 if not caller_permitted and "blacklist" in screening_mode:
                     print("> Checking blacklist(s)")
                     is_blacklisted, reason = self.screener.is_blacklisted(caller)
@@ -174,6 +165,15 @@ class CallAttendant(object):
                         caller_blocked = True
                         action = "Blocked"
                         self.blocked_indicator.blink()
+
+                # Check the whitelist
+                if not caller_permitted and not caller_blocked and "whitelist" in screening_mode:
+                    print("> Checking whitelist(s)")
+                    is_whitelisted, reason = self.screener.is_whitelisted(caller)
+                    if is_whitelisted:
+                        caller_permitted = True
+                        action = "Permitted"
+                        self.approved_indicator.blink()
 
                 if not caller_permitted and not caller_blocked:
                     caller_screened = True

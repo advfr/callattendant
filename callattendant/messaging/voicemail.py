@@ -31,6 +31,7 @@ import threading
 from datetime import datetime
 from messaging.message import Message
 import smtplib, ssl
+import socket
 from hardware.indicators import MessageIndicator, MessageCountIndicator, \
         GPIO_MESSAGE, GPIO_MESSAGE_COUNT_PINS, GPIO_MESSAGE_COUNT_KWARGS
 
@@ -173,7 +174,8 @@ class VoiceMail:
             message['Subject'] = 'Phone message recorded'
             message['From'] = self.config["EMAIL_FROM"]
             message['To'] = self.config["EMAIL_TO"]
-            body = MIMEText(f'Caller {caller["NMBR"]}, {caller["NAME"]} left a message.\n')
+            body = MIMEText(f'Caller {caller["NMBR"]}, {caller["NAME"]} left a message.\n' +
+                            f'Hear it at http://{socket.gethostname()}:5000/messages')
             message.attach(body)
             if self.config["EMAIL_ATTACH"]:
                 with open(filepath, 'rb') as wavefile:

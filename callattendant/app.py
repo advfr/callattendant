@@ -36,7 +36,7 @@ from config import Config
 from screening.calllogger import CallLogger
 from screening.callscreener import CallScreener
 from hardware.modem import Modem
-from hardware.indicators import ApprovedIndicator, BlockedIndicator
+#from hardware.indicators import ApprovedIndicator, BlockedIndicator
 from messaging.voicemail import VoiceMail
 import userinterface.webapp as webapp
 import nextcall
@@ -68,12 +68,12 @@ class CallAttendant(object):
 
         #  Hardware subsystem
         #  Initialize the visual indicators (LEDs)
-        self.approved_indicator = ApprovedIndicator(
-                self.config.get("GPIO_LED_APPROVED_PIN"),
-                self.config.get("GPIO_LED_APPROVED_BRIGHTNESS", 100))
-        self.blocked_indicator = BlockedIndicator(
-                self.config.get("GPIO_LED_BLOCKED_PIN"),
-                self.config.get("GPIO_LED_BLOCKED_BRIGHTNESS", 100))
+        #self.approved_indicator = ApprovedIndicator(
+        #        self.config.get("GPIO_LED_APPROVED_PIN"),
+        #        self.config.get("GPIO_LED_APPROVED_BRIGHTNESS", 100))
+        #self.blocked_indicator = BlockedIndicator(
+        #        self.config.get("GPIO_LED_BLOCKED_PIN"),
+        #        self.config.get("GPIO_LED_BLOCKED_BRIGHTNESS", 100))
         #  Create (and open) the modem
         self.modem = Modem(self.config)
         self.config["MODEM_ONLINE"] = self.modem.is_open  # signal the webapp not online
@@ -155,7 +155,7 @@ class CallAttendant(object):
                 if nextcall.is_next_call_permitted(self.config['PERMIT_NEXT_CALL_FLAG']):
                     caller_permitted = True
                     action = "Permitted"
-                    self.approved_indicator.blink()
+                    #self.approved_indicator.blink()
 
                 # Check the blacklist
                 if not caller_permitted and "blacklist" in screening_mode:
@@ -164,7 +164,7 @@ class CallAttendant(object):
                     if is_blacklisted:
                         caller_blocked = True
                         action = "Blocked"
-                        self.blocked_indicator.blink()
+                        #self.blocked_indicator.blink()
 
                 # Check the whitelist
                 if not caller_permitted and not caller_blocked and "whitelist" in screening_mode:
@@ -173,7 +173,7 @@ class CallAttendant(object):
                     if is_whitelisted:
                         caller_permitted = True
                         action = "Permitted"
-                        self.approved_indicator.blink()
+                        #self.approved_indicator.blink()
 
                 if not caller_permitted and not caller_blocked:
                     caller_screened = True

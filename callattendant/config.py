@@ -68,16 +68,16 @@ default_config = {
     "EMAIL_FROM": 'e-mail address to appear in the "From:" header',
     "EMAIL_TO": 'e-mail address to send the voicemail notification to',
 
-    "GPIO_LED_RING_PIN": 14,
-    "GPIO_LED_RING_BRIGHTNESS": 100,
-    "GPIO_LED_APPROVED_PIN": 15,
-    "GPIO_LED_APPROVED_BRIGHTNESS": 100,
-    "GPIO_LED_BLOCKED_PIN": 17,
-    "GPIO_LED_BLOCKED_BRIGHTNESS": 100,
-    "GPIO_LED_MESSAGE_PIN": 4,
-    "GPIO_LED_MESSAGE_BRIGHTNESS": 100,
-    "GPIO_LED_MESSAGE_COUNT_PINS": (8, 7, 27, 23, 10, 11, 9, 18),
-    "GPIO_LED_MESSAGE_COUNT_KWARGS": {"active_high": True},
+ #   "GPIO_LED_RING_PIN": 14,
+ #   "GPIO_LED_RING_BRIGHTNESS": 100,
+ #   "GPIO_LED_APPROVED_PIN": 15,
+ #   "GPIO_LED_APPROVED_BRIGHTNESS": 100,
+ #   "GPIO_LED_BLOCKED_PIN": 17,
+ #   "GPIO_LED_BLOCKED_BRIGHTNESS": 100,
+ #   "GPIO_LED_MESSAGE_PIN": 4,
+ #   "GPIO_LED_MESSAGE_BRIGHTNESS": 100,
+ #   "GPIO_LED_MESSAGE_COUNT_PINS": (8, 7, 27, 23, 10, 11, 9, 18),
+ #   "GPIO_LED_MESSAGE_COUNT_KWARGS": {"active_high": True},
     
 }
 

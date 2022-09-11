@@ -32,8 +32,8 @@ from datetime import datetime
 from messaging.message import Message
 import smtplib, ssl
 import socket
-from hardware.indicators import MessageIndicator, MessageCountIndicator, \
-        GPIO_MESSAGE, GPIO_MESSAGE_COUNT_PINS, GPIO_MESSAGE_COUNT_KWARGS
+# from hardware.indicators import MessageIndicator, MessageCountIndicator, \
+#        GPIO_MESSAGE, GPIO_MESSAGE_COUNT_PINS, GPIO_MESSAGE_COUNT_KWARGS
 
 
 class VoiceMail:
@@ -54,12 +54,12 @@ class VoiceMail:
         self.config["MESSAGE_EVENT"] = self.message_event
 
         # Initialize the message indicators (LEDs)
-        self.message_indicator = MessageIndicator(
-                self.config.get("GPIO_LED_MESSAGE_PIN", GPIO_MESSAGE),
-                self.config.get("GPIO_LED_MESSAGE_BRIGHTNESS", 100))
-        pins = self.config.get("GPIO_LED_MESSAGE_COUNT_PINS", GPIO_MESSAGE_COUNT_PINS)
-        kwargs = self.config.get("GPIO_LED_MESSAGE_COUNT_KWARGS", GPIO_MESSAGE_COUNT_KWARGS)
-        self.message_count_indicator = MessageCountIndicator(*pins, **kwargs)
+        #self.message_indicator = MessageIndicator(
+        #        self.config.get("GPIO_LED_MESSAGE_PIN", GPIO_MESSAGE),
+        #        self.config.get("GPIO_LED_MESSAGE_BRIGHTNESS", 100))
+        #pins = self.config.get("GPIO_LED_MESSAGE_COUNT_PINS", GPIO_MESSAGE_COUNT_PINS)
+        #kwargs = self.config.get("GPIO_LED_MESSAGE_COUNT_KWARGS", GPIO_MESSAGE_COUNT_KWARGS)
+        #self.message_count_indicator = MessageCountIndicator(*pins, **kwargs)
 
         # Create the Message object used to interface with the DB
         self.messages = Message(db, config)
@@ -71,7 +71,7 @@ class VoiceMail:
         self._thread.start()
 
         # Pulse the indicator if an unplayed msg is waiting
-        self.reset_message_indicator()
+        #self.reset_message_indicator()
 
         if self.config["DEBUG"]:
             print("VoiceMail initialized")
@@ -82,8 +82,8 @@ class VoiceMail:
         """
         self._stop_event.set()
         self._thread.join()
-        self.message_indicator.close()
-        self.message_count_indicator.close()
+        #self.message_indicator.close()
+        #self.message_count_indicator.close()
 
     def _event_handler(self):
         """
@@ -94,7 +94,7 @@ class VoiceMail:
             if self.message_event.wait(2.0):
                 if self.config["DEBUG"]:
                     print("Message Event triggered")
-                self.reset_message_indicator()
+                #self.reset_message_indicator()
 
     def voice_messaging_menu(self, call_no, caller):
         """
@@ -107,7 +107,7 @@ class VoiceMail:
         goodbye_file = voice_mail['goodbye_file']
 
         # Indicate the user is in the menu
-        self.message_indicator.blink()
+        #self.message_indicator.blink()
 
         tries = 0
         wait_secs = 8   # Candidate for configuration
@@ -123,7 +123,7 @@ class VoiceMail:
                 break
             elif digit == '0':
                 # End this call
-                break
+                      break
             else:
                 # Try again--up to a limit
                 self.modem.play_audio(invalid_response_file)
@@ -149,7 +149,7 @@ class VoiceMail:
         self.modem.play_audio(leave_msg_file)
 
         # Show recording in progress
-        self.message_indicator.turn_on()
+        #self.message_indicator.turn_on()
 
         if self.modem.record_audio(filepath, detect_silence):
             # Save to Message table (message.add will update the indicator)

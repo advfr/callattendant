@@ -21,6 +21,9 @@ source callattendant/bin/activate
 #Install it
 pip install -e git+https://github.com/adv/callattendant.git@master#egg=callattendant
 
+#Make yourself (non ROOT) able to access serial ports
+sudo usermod -a -G dialout USERNAME
+
 #Run it first time (later you can run it without --createfolder to see the logs)
 callattendant --create-folder
 

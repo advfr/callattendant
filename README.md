@@ -2,11 +2,11 @@
 
 ![PyPI](https://img.shields.io/pypi/v/callattendant?style=flat&link=https://pypi.org/project/callattendant/) ![PyPI - License](https://img.shields.io/pypi/l/callattendant?link=https://github.com/emxsys/callattendant/blob/master/LICENSE) ![PyPI - Status](https://img.shields.io/pypi/status/callattendant) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/emxsys/callattendant/callattendant)
 
-#### `pip install callattendant`
+
 
 ## Hi there, I've created this fork for people who wants to execute this great piece of software NOT on a RaspberryPi. Indeed, the original software was made for it, but GPIOs (hardware and software libraries) are not available on other plateforms. I'm not an expert at all and what I've done is only commenting parts of code where things related to GPIO (and "indicator") are mentionned. All credits go to Bruce Schubert, the creator of this application. I started my changes on a fork made by GalacticStudios.
 
-Here is how I setup the app on my Wyse thin client under Ubuntu 22:
+Here is how I setup the app on my Wyse thin client under Ubuntu 22.04:
 
 ```bash
 # Install virtualenv - if not installed
@@ -36,7 +36,7 @@ After=multi-user.target
 
 [Service]
 Type=simple
-ExecStart=/home/UNSERNAME/callattendant/bin/callattendant --config app.cfg
+ExecStart=/home/USERNAME/callattendant/bin/callattendant --config app.cfg
 Environment="PYTHONUNBUFFERED='True'"
 WorkingDirectory=/home/USERNAME/.callattendant
 User=USERNAME

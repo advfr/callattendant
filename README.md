@@ -29,6 +29,7 @@ sudo nano /lib/systemd/system/callattendant.service
 ```
 
 It includes:
+```bash
 [Unit]
 Description=Call Attendant
 After=multi-user.target
@@ -43,6 +44,7 @@ Restart=on-abort
 
 [Install]
 WantedBy=multi-user.target
+```
 
 ```bash
 # Make the service file executable

@@ -231,8 +231,8 @@ class CallAttendant(object):
         print("-> Stopping voice mail")
         self.voice_mail.stop()
         print("-> Releasing resources")
-        self.approved_indicator.close()
-        self.blocked_indicator.close()
+        #self.approved_indicator.close()
+        #self.blocked_indicator.close()
         print("Shutdown finished")
 
     def answer_call(self, actions, greeting, call_no, caller):

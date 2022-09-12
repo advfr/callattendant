@@ -24,8 +24,11 @@ pip install -e git+https://github.com/adv/callattendant.git@master#egg=callatten
 #Make yourself (non ROOT) able to access serial ports
 sudo usermod -a -G dialout USERNAME
 
-#Run it first time (later you can run it without --createfolder to see the logs)
+#Run it first time
 callattendant --create-folder
+
+#Run it with the created default config
+callattendant --config app.cfg
 
 #Create the service file
 sudo nano /lib/systemd/system/callattendant.service

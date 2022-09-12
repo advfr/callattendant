@@ -55,7 +55,7 @@ If the service doesn't start, check that :
 'PERMITTED_ACTIONS': ('ignore',),     <- the first , is missing
 in /home/USERNAME/.callattendant/app.cfg:
 
-
+=========================================================================================================
 
 The Call Attendant (__callattendant__) is an auto attendant with an integrated call blocker and 
 voice messaging system (running on a Raspberry Pi). It stops annoying robocalls and spammers from

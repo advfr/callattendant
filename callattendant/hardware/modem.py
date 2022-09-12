@@ -42,7 +42,7 @@ import wave
 from datetime import datetime
 from pprint import pprint
 
-from hardware.indicators import RingIndicator
+# from hardware.Indicators import RingIndicator
 
 # ACSII codes
 DLE_CODE = chr(16)      # Data Link Escape (DLE) code
@@ -147,10 +147,10 @@ class Modem(object):
         self._thread = None
 
         # Ring notifications
-        self.ring_indicator = RingIndicator(
-            self.config.get("GPIO_LED_RING_PIN"),
-            self.config.get("GPIO_LED_RING_BRIGHTNESS", 100))
-        self.ring_event = threading.Event()
+        #self.ring_indicator = RingIndicator(
+        #    self.config.get("GPIO_LED_RING_PIN"),
+        #    self.config.get("GPIO_LED_RING_BRIGHTNESS", 100))
+        #self.ring_event = threading.Event()
 
         # Initialize the serial port attached to the physical modem
         self._serial = serial.Serial()
@@ -186,7 +186,7 @@ class Modem(object):
         self._stop_event.set()
         if self._thread:
             self._thread.join()
-        self.ring_indicator.close()
+        #self.ring_indicator.close()
         self._close_serial_port()
 
     def _call_handler(self, handle_caller):
@@ -596,7 +596,7 @@ class Modem(object):
         self.ring_event.set()
         self.ring_event.clear()
         # Visual notification (LED)
-        self.ring_indicator.ring()
+        #self.ring_indicator.ring()
 
     def _send(self, command, expected_response="OK", response_timeout=5):
         """

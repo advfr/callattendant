@@ -4,7 +4,55 @@
 
 #### `pip install callattendant`
 
-## Hi there, I've created this fork for people who want to execute this great piece of software NOT on a RaspberryPi, indeed, the original was made for it, but GPIOS (hardware and software libraries) are not available. I'm not an expert at all and what I've done is only commenting parts of code where things related to GPIO (and "indicator") are mentionned.
+## Hi there, I've created this fork for people who wants to execute this great piece of software NOT on a RaspberryPi. Indeed, the original software was made for it, but GPIOs (hardware and software libraries) are not available on other plateforms. I'm not an expert at all and what I've done is only commenting parts of code where things related to GPIO (and "indicator") are mentionned. All credits go to Bruce Schubert, the creator of this application. I started my changes on a fork made by GalacticStudios.
+
+Here is how I setup the app on my Wyse thin client under Ubuntu 22:
+
+```bash
+# Install virtualenv - if not installed
+sudo apt install virtualenv
+
+# Create the virtual environment
+virtualenv callattendant --python=python3
+
+# Activate it
+source callattendant/bin/activate
+
+#Install it
+pip install -e git+https://github.com/adv/callattendant.git@master#egg=callattendant
+
+#Run it first time
+callattendant --create-folder
+
+#Create the service file
+sudo nano /lib/systemd/system/callattendant.service
+```
+
+It includes:
+[Unit]
+Description=Call Attendant
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/home/UNSERNAME/callattendant/bin/callattendant --config app.cfg
+Environment="PYTHONUNBUFFERED='True'"
+WorkingDirectory=/home/USERNAME/.callattendant
+User=USERNAME
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
+
+```bash
+# Make the service file executable
+sudo chmod 644 /lib/systemd/system/callattendant.service
+```
+
+If the service doesn't start, check that :
+'PERMITTED_ACTIONS': ('ignore',),     <- the first , is missing
+in /home/USERNAME/.callattendant/app.cfg:
+
 
 
 The Call Attendant (__callattendant__) is an auto attendant with an integrated call blocker and 

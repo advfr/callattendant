@@ -4,7 +4,7 @@
 
 
 
-## Hi there, I've created this fork for people who wants to execute this great piece of software NOT on a RaspberryPi. Indeed, the original software was made for it, but GPIOs (hardware and software libraries) are not available on other plateforms. I'm not an expert at all and what I've done is only commenting parts of code where things related to GPIO (and "indicator") are mentionned. All credits goes to Bruce Schubert, the creator of this application. I started my changes on a fork made by GalacticStudios.
+## Hi there, I've created this fork for people who wants to execute this great piece of software NOT on a RaspberryPi. Indeed, the original software was made for it, but GPIOs (hardware layer and software libraries) are not available on other plateforms. I'm not an expert at all and what I've done is only commenting parts of code where things related to GPIO (and "indicator") are mentionned. All credits goes to Bruce Schubert, the creator of this application. I started my changes on a fork made by GalacticStudios.
 
 Here is how I setup the app on my Wyse thin client under Ubuntu 22.04:
 
@@ -21,7 +21,7 @@ source callattendant/bin/activate
 #Install it
 pip install -e git+https://github.com/adv/callattendant.git@master#egg=callattendant
 
-#Run it first time
+#Run it first time (later you can run it without --createfolder to see the logs)
 callattendant --create-folder
 
 #Create the service file
@@ -51,7 +51,7 @@ WantedBy=multi-user.target
 sudo chmod 644 /lib/systemd/system/callattendant.service
 ```
 
-If the service doesn't start, check that :
+If the app doesn't start, check that :
 'PERMITTED_ACTIONS': ('ignore',),     <- the first , is missing
 in /home/USERNAME/.callattendant/app.cfg
 

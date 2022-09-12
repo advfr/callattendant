@@ -150,7 +150,7 @@ class Modem(object):
         #self.ring_indicator = RingIndicator(
         #    self.config.get("GPIO_LED_RING_PIN"),
         #    self.config.get("GPIO_LED_RING_BRIGHTNESS", 100))
-        #self.ring_event = threading.Event()
+        self.ring_event = threading.Event()
 
         # Initialize the serial port attached to the physical modem
         self._serial = serial.Serial()

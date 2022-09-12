@@ -5,8 +5,8 @@
 #### `pip install callattendant`
 
 ## Hi there, I've created this fork for people who want to execute this great piece of software NOT on a RaspberryPi, indeed, the original was made for it, but
-GPIOS (hardware and software libraries) are not available.
-I'm not an expert at all and what I've done is only commenting parts of code where things related to GPIO (and "indicator") are mentionned.
+## GPIOS (hardware and software libraries) are not available.
+## I'm not an expert at all and what I've done is only commenting parts of code where things related to GPIO (and "indicator") are mentionned.
 
 
 The Call Attendant (__callattendant__) is an auto attendant with an integrated call blocker and 

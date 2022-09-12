@@ -4,8 +4,13 @@
 
 #### `pip install callattendant`
 
+## Hi there, I've created this fork for people who want to execute this great piece of software NOT on a RaspberryPi, indeed, the original was made for it, but
+GPIOS (hardware and software libraries) are not available.
+I'm not an expert at all and what I've done is only commenting parts of code where things related to GPIO (and "indicator") are mentionned.
+
+
 The Call Attendant (__callattendant__) is an auto attendant with an integrated call blocker and 
-voice messaging system running on a Raspberry Pi. It stops annoying robocalls and spammers from
+voice messaging system (running on a Raspberry Pi). It stops annoying robocalls and spammers from
 interrupting your life. Let the Call Attendant intercept and block robocallers and telemarketers
 before the first ring on your landline.
 
@@ -70,7 +75,7 @@ a blocked number list and pattern matching on the caller's number and/or name.
 
 - A call blocker that intercepts robocallers and blocked numbers at or before the first ring
 - Permitted numbers pass straight through to the local phone system for normal call ringing and answering
-- Visual indicators to show whether the incoming call is from a permitted, blocked, or unknown number
+- (Visual indicators to show whether the incoming call is from a permitted, blocked, or unknown number)
 - Call details, permitted numbers, and blocked numbers are available in a web-based user interface
 - Calls can be handled by a voice messaging system that optioanlly requires human interaction,
   e.g, "Press 1 to leave a message"

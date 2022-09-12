@@ -53,7 +53,15 @@ sudo chmod 644 /lib/systemd/system/callattendant.service
 
 If the service doesn't start, check that :
 'PERMITTED_ACTIONS': ('ignore',),     <- the first , is missing
-in /home/USERNAME/.callattendant/app.cfg:
+in /home/USERNAME/.callattendant/app.cfg
+
+Control the service with:
+```bash
+sudo systemctl stop callattendant.service
+sudo systemctl start callattendant.service
+sudo systemctl status callattendant.service
+```
+
 
 ====================================================================================================================================================================================================================================================================================
 

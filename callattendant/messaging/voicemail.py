@@ -130,7 +130,7 @@ class VoiceMail:
                 tries += 1
         self.modem.play_audio(goodbye_file)
         if not rec_msg:
-            self.reset_message_indicator()
+            #self.reset_message_indicator()
 
     def record_message(self, call_no, caller, detect_silence=True):
         """
@@ -162,7 +162,7 @@ class VoiceMail:
             # Return the messageID on success
             return msg_no
         else:
-            self.reset_message_indicator()
+            #self.reset_message_indicator()
             # Return failure
             return None
 
@@ -196,14 +196,14 @@ class VoiceMail:
         if self.config["DEBUG"]:
             print("Resetting Message Indicator to show {} unplayed messages".format(unplayed_count))
         if unplayed_count > 0:
-            self.message_indicator.pulse()
+            #self.message_indicator.pulse()
             if unplayed_count < 10:
-                self.message_count_indicator.display(unplayed_count)
-                self.message_count_indicator.decimal_point = False
+                #self.message_count_indicator.display(unplayed_count)
+                #self.message_count_indicator.decimal_point = False
             else:
-                self.message_count_indicator.display(9)
-                self.message_count_indicator.decimal_point = True
+                #self.message_count_indicator.display(9)
+                #self.message_count_indicator.decimal_point = True
         else:
-            self.message_indicator.turn_off()
-            self.message_count_indicator.display(' ')
-            self.message_count_indicator.decimal_point = False
+            #self.message_indicator.turn_off()
+            #self.message_count_indicator.display(' ')
+            #self.message_count_indicator.decimal_point = False

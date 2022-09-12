@@ -62,6 +62,7 @@ sudo systemctl start callattendant.service
 sudo systemctl status callattendant.service
 ```
 
+Please note that the file /callattendant/hardware/indicators.py has been deleted (compared to other forks)
 
 ====================================================================================================================================================================================================================================================================================
 

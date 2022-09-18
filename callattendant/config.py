@@ -32,7 +32,7 @@ default_config = {
     "PHONE_DISPLAY_FORMAT": "###-###-####",
 
     "BLOCK_ENABLED": True,
-    "BLOCK_SERVICE": "",
+    "BLOCK_SERVICE": "SHOULDIANSWER",
 
     "BLOCK_NAME_PATTERNS": 'blocknameslist.txt',
     "BLOCK_NUMBER_PATTERNS": 'blocknumberslist.txt',

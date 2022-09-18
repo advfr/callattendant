@@ -9,6 +9,10 @@
 Here is how I setup the app on my Wyse thin client under Ubuntu 22.04:
 
 ```bash
+#Make yourself (non ROOT) able to access serial ports
+sudo usermod -a -G dialout USERNAME
+#Now logoff and login
+
 # Install virtualenv - if not installed
 sudo apt install virtualenv
 
@@ -20,9 +24,6 @@ source callattendant/bin/activate
 
 #Install it
 pip install -e git+https://github.com/advfr/callattendant.git@master#egg=callattendant
-
-#Make yourself (non ROOT) able to access serial ports
-sudo usermod -a -G dialout USERNAME
 
 #Run it first time
 callattendant --create-folder

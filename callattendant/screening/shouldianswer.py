@@ -1,9 +1,9 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 #
-#  nomorobo.py
+#  ShouldIAnswer.py
 #
-#  Copyright 2018 Bruce Schubert <bruce@emxsys.com>
+#  Copyright 2021 Thomas BARDET <thomas.bardet@cloud-forge.net>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -28,36 +28,42 @@ import urllib.request
 from bs4 import BeautifulSoup
 
 
-class NomoroboService(object):
+class ShouldIAnswer(object):
 
     def lookup_number(self, number):
-        number = '{}-{}-{}'.format(number[0:3], number[3:6], number[6:])
-        url = "https://www.nomorobo.com/lookup/%s" % number
+        #number = '{}-{}-{}'.format(number[0:3], number[3:6], number[6:])
+        url = "https://www.doisjerepondre.fr/numero-de-telephone/%s" % number
         # print(url)
         headers = {}
         allowed_codes = [404]  # allow not found response
         content = self.http_get(url, headers, allowed_codes)
-        soup = BeautifulSoup(content, "html.parser")
+        soup = BeautifulSoup(content, "lxml")  # lxml HTML parser: fast
 
         score = 0  # = no spam
 
-        positions = soup.findAll(class_="profile-position")
-        if len(positions) > 0:
-            position = positions[0].get_text()
-            if position.upper().find("DO NOT ANSWER") > -1:
-                # print("Spammer!")
-                score = 2  # = is spam
-            else:
-                # print("Nuisance!")
-                score = 1  # = might be spam (caller is "Political", "Charity", or "Debt Collector")
+        scoreContainer = soup.find(class_="scoreContainer")
 
-        reason = ""
-        titles = soup.findAll(class_="profile-title")
-        if len(titles) > 0:
-            reason = titles[0].get_text()
-            reason = reason.replace("\n", "").strip(" ")
-            # TODO: if score == 1, check for "Political", "Charity", and/or "Debt Collector"
-            # in the reason and adjust the score if appropriate
+        #print(positions)
+        if len(scoreContainer) > 0:
+            divScore = scoreContainer.select("div > .negative")
+            #print(divScore)
+            if(divScore):
+                #print("Spammer!")
+                score = 2
+
+            reason = ""
+            numbers = soup.find(class_="number")
+            #print(numbers)
+            if len(numbers) > 0:
+                spanReason = numbers.select("div > span")
+                reason = spanReason[0].get_text()
+                reason = reason.replace("\n", "").strip(" ")
+                #print(reason)
+            #review = soup.find(class_="review reviewNew")
+            #print(review)
+            #if len(review) > 0:
+                #bouton = review.select("div > #nf1ButYes ")
+                #print(bouton)
 
         spam = False if score < self.spam_threshold else True
 
@@ -66,6 +72,7 @@ class NomoroboService(object):
             "score": score,
             "reason": reason
         }
+        print(result)
         return result
 
     def http_get(self, url, add_headers={}, allowed_codes=[]):

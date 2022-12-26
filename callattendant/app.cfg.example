@@ -12,10 +12,10 @@
 
 # ENV: "production" or "development" environment. "development" implies
 # the inclusion of incomplete features and/or experimental code.
-ENV = 'production'
+ENV = 'development'
 
 # DEBUG: If True additional assertions and output may be generated
-DEBUG = False
+DEBUG = True
 
 # TESTING: If True function tests are executed in lieu of normal operation
 TESTING = False
@@ -25,7 +25,7 @@ TESTING = False
 #DATABASE = "callattendant.db"
 
 # PHONE_DISPLAY_SEPARATOR: Specify the character used to format phone numbers, e.g, a space, hyphen or period,
-PHONE_DISPLAY_SEPARATOR = "-"
+PHONE_DISPLAY_SEPARATOR = "."
 
 # PHONE_DISPLAY_FORMAT: Define the formatting of phone numbers in the various lists. You must use the
 # separator character defined by PHONE_DISPLAY_SEPARATOR above in the format string.
@@ -57,8 +57,12 @@ PHONE_DISPLAY_SEPARATOR = "-"
 #  Example: Raw - no formatting
 #  PHONE_DISPLAY_FORMAT = ""
 #
-PHONE_DISPLAY_FORMAT = "###-###-####"
+PHONE_DISPLAY_FORMAT = "####.##.##.##.##"
 
+# Country code for CLI to work, default B5 is USA, B4 is UK
+# see https://opengear.zendesk.com/hc/en-us/articles/216371103-ACM5003-M-Modem-Country-Code-List
+# for others
+COUNTRY_CODE = "B5"
 
 # SCREENING_MODE: A tuple containing: "whitelist" and/or "blacklist", or empty
 SCREENING_MODE = ("whitelist", "blacklist")
@@ -100,8 +104,8 @@ PERMIT_NEXT_CALL_FLAG = 'permitnextcall.flag'
 #   to blank. When the online service is blank (disabled), only the blacklist and blocked
 #   name/number patterns are used to block numbers.
 #
-#   Example: "NOMOROBO" (USA)  or "" (disabled).
-BLOCK_SERVICE = "NOMOROBO"
+#   Example: "NOMOROBO" (USA)  or "SHOULDIANSWER" (WW).
+BLOCK_SERVICE = "SHOULDIANSWER"
 
 
 # BLOCKED_ACTIONS: A tuple containing following actions:
@@ -167,7 +171,7 @@ SCREENED_RINGS_BEFORE_ANSWER = 0
 # PERMITTED_ACTIONS:  A tuple containing a combination of the following actions:
 #   "ignore" OR a combo of "answer", "greeting", "record_message", "voice_mail".
 # See BLOCKED_ACTIONS for more info.
-PERMITTED_ACTIONS = ("ignore")
+PERMITTED_ACTIONS = ('ignore',)
 
 # PERMITTED_GREETING_FILE: The wav file to be played to allowed callers.
 #   Example: "I'm sorry, I can't take your call."

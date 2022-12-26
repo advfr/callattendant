@@ -23,7 +23,7 @@ virtualenv callattendant --python=python3
 source callattendant/bin/activate
 
 #Install it
-pip install -e git+https://github.com/adv/callattendant.git@master#egg=callattendant
+pip install -e git+https://github.com/advfr/callattendant.git@master#egg=callattendant
 
 #Run it first time
 callattendant --create-folder
